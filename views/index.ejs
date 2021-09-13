@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>게시판</title>
+</head>
+<body>
+    <h1>게시판</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i = 0; i < topic.length; i++) { %>
+            <tr>
+                <td><%= topic[i].id %></td>
+                <td><a href="/detail/<%= topic[i].id %>"> <%= topic[i].TITLE %></a></td>
+                <td><%= topic[i].WRITER %></td>
+                <td><%= topic[i].WDATE %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <input type="button" value="글쓰기" onclick="location.href='/create'"/>
+
+    
+    
+</body>
+</html>

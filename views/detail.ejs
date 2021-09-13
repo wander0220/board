@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>게시판</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>게시글 상세보기</h1>
+    <form action="/delete_process" method="POST">
+        <input type="hidden" name="id" value="<%= topic.id %>">
+        <div>
+            <h3>제목</h3>
+            <%= topic.TITLE %>
+        </div>
+        <div>
+            <h3>작성자</h3>
+            <%= topic.WRITER %>
+        </div>
+        <div>
+            <h3>내용</h3>
+            <%= topic.CONTENT %>
+        </div>
+        <div>
+            <input type="button" value="수정하기" onclick="location.href='/update/<%= topic.id %>'"/>
+            <input type="submit" value="삭제하기"/>
+            <input type="button" value="목록으로" onclick="location.href='/'">
+        </div>
+    </form>
+</body>
+</html>

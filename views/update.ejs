@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>게시판</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>게시글 수정</h1>
+    <form action="/update_process" method="POST">
+        <input type="hidden" name="id" value="<%= topic.id %>">
+        <div>
+            <h3>제목</h3>
+            <input type="text" name = "title" value="<%= topic.TITLE %>"/>
+        </div>
+        <div>
+            <h3>작성자</h3>
+            <input type="text" value="<%= topic.WRITER %>"/>
+        </div>
+        <div>
+            <h3>내용</h3>
+            <textarea cols="50" rows=", 10" name="content"><%= topic.CONTENT %></textarea>
+        </div>
+        <div>
+            <input type="submit" value="저장하기"/>
+            <input type="button" value="목록으로" onclick="location.href='/'"/>
+        </div>
+    </form>
+</body>
+</html>

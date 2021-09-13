@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>게시판</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>게시글 작성</h1>
+    <form action="/create_process" method="POST">
+        <div>
+            <h3>제목</h3>
+            <input type="text" name="title"/>
+        </div>
+        <div>
+            <h3>작성자</h3>
+            <input type="text" name="writer"/>
+        </div>
+        <div>
+            <h3>내용</h3>
+            <textarea cols="50" rows="10" name="content"></textarea>
+        </div>
+        <div>
+            <input type="submit" value="등록하기"/>
+            <input type="button" value="목록으로" onclick="location.href='/'"/> 
+        </div>
+    </form>
+</body>
+</html>
