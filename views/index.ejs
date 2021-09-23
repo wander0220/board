@@ -1,33 +1,100 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>게시판</title>
-</head>
-<body>
-    <h1>게시판</h1>
-    <table>
-        <thead>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+  </head>
+  <body id="allContent">
+    <div>
+      <div>
+        <h1>게시판</h1>
+        <table>
+          <thead>
             <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
+              <th>번호</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>작성일</th>
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             <% for(var i = 0; i < topic.length; i++) { %>
             <tr>
-                <td><%= topic[i].id %></td>
-                <td><a href="/detail/<%= topic[i].id %>"> <%= topic[i].TITLE %></a></td>
-                <td><%= topic[i].WRITER %></td>
-                <td><%= topic[i].WDATE %></td>
+              <td><%= topic[i].id %></td>
+              <td>
+                <a href="/detail/<%= topic[i].id %>"> <%= topic[i].TITLE %></a>
+              </td>
+              <td><%= topic[i].WRITER %></td>
+              <td><%= topic[i].WDATE %></td>
             </tr>
             <% } %>
-        </tbody>
-    </table>
-    <input type="button" value="글쓰기" onclick="location.href='/create'"/>
+          </tbody>
+        </table>
+        <input type="button" value="글쓰기" onclick="location.href='/create'" />
+      </div>
+      <div>
+        <p id="demo"></p>
+        <canvas
+          id="drawingCanvas"
+          width="400"
+          height="400"
+          style="border: 1px solid #000000"
+          onclick="mouseEvent(event);"
+        ></canvas>
+      </div>
+      <a id="target" style="display: none"></a>
+      <input type="button" value="화면 캡쳐" onclick="capture(event);" />
+      <input type="button" value="화면 녹화" onclick="recording(event);" />
+      <div id="captureImage"></div>
+    </div>
 
-    
-    
-</body>
+    <script>
+      // canvas 설정
+      var ele_canvas = document.getElementById("drawingCanvas");
+      var context_canvas = ele_canvas.getContext("2d");
+      context_canvas.fillStyle = "#000000"; // 색상
+
+      // 마우스 클릭 이벤트
+      function mouseEvent(event) {
+        var x = event.clientX;
+        var y = event.clientY;
+        var realY = y - 290;
+
+        // 점 같은 원
+        // context_canvas.beginPath();
+        // context_canvas.arc(x, realY, 2, 0, Math.PI * 2);
+        // context_canvas.closePath();
+        // context_canvas.fill();
+
+        // 사각형
+        context_canvas.strokeRect(x, realY, 50, 50);
+      }
+
+      // 전체 캡쳐
+      function capture(e) {
+        // 이미지 파일 저장
+        html2canvas(e.target.parentElement).then(function (canvas) {
+          if (navigator.msSaveBlob) {
+            var blob = canvas.msToBlob();
+            return navigator.msSaveBlob(blob, "name.jpg");
+          } else {
+            var el = document.getElementById("target");
+            el.href = canvas.toDataURL("image/jpeg");
+            el.download = "파일명.jpg";
+            el.click();
+          }
+        });
+        // 보여주는 거
+        html2canvas(document.querySelector("#allContent")).then((canvas) => {
+          //document.body.appendChild(canvas);
+          document.getElementById("captureImage").appendChild(canvas);
+        });
+      }
+
+      function recording(e) {
+        console.log("recording");
+      }
+    </script>
+  </body>
 </html>
